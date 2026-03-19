@@ -39,7 +39,7 @@ python3 --version  # убедитесь, что версия ≥ 3.11
 ```
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Kur0FF/ai-avatar-memory-bot.git
 cd ai-avatar-memory-bot
 python3 -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate

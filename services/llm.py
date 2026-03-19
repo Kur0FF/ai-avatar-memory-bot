@@ -135,7 +135,7 @@ async def extract_facts(messages: list[dict[str, str]]) -> list[str]:
                 },
             ],
             temperature=0.1,
-            max_tokens=500,
+            max_tokens=1000,
         )
         raw = response.choices[0].message.content or ""
         return _parse_facts_json(raw)

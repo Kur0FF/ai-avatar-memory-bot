@@ -1,4 +1,4 @@
-from sqlalchemy import delete, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.models import Message
@@ -31,6 +31,22 @@ async def get_last_n(
     )
     # Fetch DESC for efficiency, then reverse to get chronological order
     return list(reversed(result.scalars().all()))
+
+
+async def count_user_messages(
+    session: AsyncSession,
+    user_id: int,
+    avatar_id: int,
+) -> int:
+    """Return total number of user-role messages for this (user, avatar) pair."""
+    result = await session.execute(
+        select(func.count()).where(
+            Message.user_id == user_id,
+            Message.avatar_id == avatar_id,
+            Message.role == "user",
+        )
+    )
+    return result.scalar_one()
 
 
 async def delete_history(

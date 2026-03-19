@@ -50,10 +50,9 @@ async def handle_chat_message(
             content=full_response,
         )
 
-    # Trigger background fact extraction if needed (no session passed — task opens its own)
-    recent = await memory_short.get_context(session, message.from_user.id, avatar_id)
+    # Trigger background fact extraction if needed (background task opens its own session)
     await memory_long.maybe_extract_and_save_facts(
-        message.from_user.id, avatar_id, recent
+        session, message.from_user.id, avatar_id, message.text
     )
 
 
